@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { OktaContext } from './OktaContext';
 
 export default (Component: React.FunctionComponent) => {
@@ -21,7 +21,7 @@ export default (Component: React.FunctionComponent) => {
       return renderUnauthenticatedView ? (
         renderUnauthenticatedView
       ) : (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={styles.loadingWrapper}>
           <ActivityIndicator />
         </View>
       );
@@ -42,3 +42,7 @@ export default (Component: React.FunctionComponent) => {
   };
   return WithAuth;
 };
+
+const styles = StyleSheet.create({
+  loadingWrapper: { flex: 1, justifyContent: 'center' },
+});
