@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { OktaContext } from './OktaContext';
 
 export default (Component: React.FunctionComponent) => {
-  const WithAuth = (props: any) => {
+  const WithAuth = (props: any): JSX.Element => {
     const {
       isAuthenticated,
       accessToken,

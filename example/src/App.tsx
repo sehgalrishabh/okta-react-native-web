@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { OktaProvider } from 'okta-react-native-web';
+import OktaAuth from '@okta/okta-auth-js';
+import Home from './Home';
 
-export default function App() {
-  return <View style={styles.container} />;
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
+const authClient = new OktaAuth({
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  clientId: 'YOUR_CLIENT_ID_GOES_HERE',
+  redirectUri: 'YOUR_REDIRECT_URI_GOES_HERE',
 });
+
+const App = () => {
+  return (
+    <OktaProvider config={authClient}>
+      <Home />
+    </OktaProvider>
+  );
+};
+
+export default App;

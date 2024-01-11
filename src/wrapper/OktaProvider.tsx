@@ -1,48 +1,28 @@
-import React, { useEffect, type Dispatch, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Linking } from 'react-native';
-import { OktaAuth, type AuthState } from '@okta/okta-auth-js';
-import { OktaLogin, OktaLogout, UpdateUser } from './OktaAction';
-import OktaReducer, { OktaState } from './OktaReducer';
-import type { AuthProps, OktaProviderProps, AuthStates } from '../types';
+import { type AuthState } from '@okta/okta-auth-js';
+import { OktaLogin } from '../reducer/OktaAction';
+import OktaReducer, { OktaState } from '../reducer/OktaReducer';
+import type { OktaProviderProps, AuthStates } from '../types';
 import { OktaContext } from './OktaContext';
+import { login, logout } from '../utils/helpers';
 
-const login = async (
-  dispatch: Dispatch<any>,
-  state: AuthProps,
-  oktaClient: OktaAuth,
-  redirect: () => void
-) => {
-  const sessionExists = await oktaClient.session.exists();
-  const isAuthenticated = await oktaClient.isAuthenticated();
-
-  if (!sessionExists) {
-    if (oktaClient.isLoginRedirect()) {
-      try {
-        await oktaClient.handleRedirect();
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (!isAuthenticated) {
-      //start oidc flow, parse tokens from redirect callback url
-      redirect();
-    } else {
-      //user if authenticated
-      sessionExists
-        ? state.user !== null &&
-          state.user !== undefined &&
-          UpdateUser(dispatch, oktaClient)
-        : logout(dispatch, oktaClient);
-    }
-  } else if (!isAuthenticated && sessionExists) {
-    oktaClient.token.getWithRedirect();
-  }
-};
-
-const logout = async (dispatch: Dispatch<any>, authClient: OktaAuth) => {
-  await authClient.signOut();
-  OktaLogout(dispatch);
-};
-
+/**
+ * Okta wrapper for react-native-web.
+ *
+ * @remarks
+ * This provider can be used to wrap the components. This will help to make routes or components protected and will provide necessary props.
+ *
+ * @example
+ * ```tsx
+ * import { OktaProvider } from 'okta-react-native-web';
+ *
+ * const App = () => (
+ *   <OktaProvider config={authClient}>
+ *   </OktaProvider>
+ * );
+ * ```
+ */
 const OktaProvider = ({
   authRedirect,
   children,
