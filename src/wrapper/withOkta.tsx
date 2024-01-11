@@ -1,9 +1,29 @@
 import React, { useContext } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { OktaContext } from './OktaContext';
-
+/**
+ * Okta wrapper for react-native-web.
+ *
+ * @remarks
+ * HOC to connect component with OktaProvider and provide the neccessary props.
+ *
+ * @example
+ * ```tsx
+ * ...
+ * import { withOkta } from 'okta-react-native-web';
+ * ...
+ * const Home = (props) => {
+ * const {isAuthenticated,oktaClient,accessToken,oktaLogin,oktaLogout,idToken,user} = props;
+ *   return (
+ *    <View>
+ *       <Text>Home</Text>
+ *    </View>
+ *   );
+ * export default withOkta(Home);
+ * ```
+ */
 export default (Component: React.FunctionComponent) => {
-  const WithAuth = (props: any): JSX.Element => {
+  const WithOkta = (props: any): JSX.Element => {
     const {
       isAuthenticated,
       accessToken,
@@ -40,7 +60,7 @@ export default (Component: React.FunctionComponent) => {
       />
     );
   };
-  return WithAuth;
+  return WithOkta;
 };
 
 const styles = StyleSheet.create({
