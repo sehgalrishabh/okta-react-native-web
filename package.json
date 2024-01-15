@@ -34,6 +34,9 @@
     "release": "release-it"
   },
   "keywords": [
+    "okta",
+    "react-native-web",
+    "reactjs",
     "react-native",
     "ios",
     "android"
