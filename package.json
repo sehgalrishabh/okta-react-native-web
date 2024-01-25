@@ -1,6 +1,6 @@
 {
   "name": "okta-react-native-web",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Okta wrapper for react-native-web",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
