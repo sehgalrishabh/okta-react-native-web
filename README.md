@@ -1,6 +1,8 @@
+![NPM Version](https://img.shields.io/npm/v/okta-react-native-web) ![NPM Type Definitions](https://img.shields.io/npm/types/okta-react-native-web)
+
 # okta-react-native-web
 
-Okta wrapper for react native web
+Okta wrapper for react native web based on okta-auth-js sdk.
 
 ## Installation
 
