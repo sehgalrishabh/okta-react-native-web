@@ -46,6 +46,33 @@ const Home = () => {
 export default withOkta(Home);
 ```
 
+Don't want to use protected routes ? Got your back, now you can use `useOktaAuth` hook to get access to required props.
+
+```js
+import { useOktaAuth } from 'okta-react-native-web';
+
+// ...
+
+const Home = () => {
+  const { accessToken, isAuthenticated, oktaClient, oktaLogin, oktaLogout } =
+    useOktaAuth();
+  //...
+};
+
+export default Home;
+```
+
+## Supported props for `OktaProvider`
+
+| Props                     | Description                                                                                 | Type                                                                              | Required |
+| ------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | -------- |
+| children                  | Pass your react elements here. You can put your navigation here to enable protected routes  | [ReactNode](https://reactnative.dev/docs/react-node)                              | yes      |
+| config                    | Pass `OktaAuth` client here                                                                 | [OktaAuth](https://github.com/okta/okta-auth-js?tab=readme-ov-file#configuration) | yes      |
+| redirectUri               | Add custom redirect uri here                                                                | string                                                                            |          |
+| authRedirect              | Add your custom redirect logic here                                                         | void                                                                              |          |
+| useLinking                | Use React Native's linking api instead of the default `signInWithRedirect` implementation   | boolean                                                                           |          |
+| renderUnauthenticatedView | Render custom view for unaunthenticated users. By default it renders an `ActivityIndicator` | JSX.Element                                                                       |          |
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
@@ -55,3 +82,7 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 MIT
 
 ---
+
+```
+
+```
